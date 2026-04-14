@@ -13,15 +13,15 @@ export const getNetworkMap = () => API.get("/network-map");
 export const startPairing = (seconds = 120) =>
   API.post("/pairing/start", { seconds });
 
+export const stopPairing = () => API.post("/pairing/stop");
+
 export const removeDevice = (ieee) =>
   API.delete(`/devices/${encodeURIComponent(ieee)}`);
 
 export const renameDevice = (ieee, name) =>
-  API.post("/devices/rename", { ieee, name });
+  API.put(`/devices/${encodeURIComponent(ieee)}/rename`, { name });
 
 export const controlDevice = (ieee, payload) =>
-  API.post("/devices/control", { ieee, payload });
-
-export const stopPairing = () => API.post("/pairing/stop");
+  API.post(`/devices/${encodeURIComponent(ieee)}/control`, payload);
 
 export default API;

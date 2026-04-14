@@ -31,9 +31,6 @@ function DeviceList({
     sirenDevice,
   }) => {
     try {
-      console.log("controlSiren sourceDevice:", sourceDevice);
-      console.log("controlSiren sirenDevice:", sirenDevice);
-
       const ieee =
         sirenDevice?.ieee_address || sirenDevice?.ieeeAddr || sirenDevice?.ieee;
 
@@ -41,8 +38,6 @@ function DeviceList({
         console.error("Siren IEEE not found");
         return;
       }
-
-      console.log("Using siren IEEE:", ieee);
 
       await controlDevice(ieee, {
         alarm: action,

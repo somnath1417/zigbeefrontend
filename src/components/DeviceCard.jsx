@@ -86,9 +86,6 @@ function DeviceCard({
               return;
             }
 
-            console.log("SOS source device:", device);
-            console.log("Matched siren device:", sirenDevices);
-
             // await onControlSiren({
             //   sourceDevice: device, // SOS button
             //   sirenDevice: sirenDevices, // actual siren
