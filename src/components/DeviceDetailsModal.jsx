@@ -8,9 +8,41 @@ function formatLabel(value = "") {
     .replace(/\b\w/g, (char) => char.toUpperCase());
 }
 
+// function getExposeList(device) {
+//   const exposes = device?.definition?.exposes || device?.exposes || [];
+//   return Array.isArray(exposes) ? exposes : [];
+// }
 function getExposeList(device) {
-  const exposes = device?.definition?.exposes || device?.exposes || [];
-  return Array.isArray(exposes) ? exposes : [];
+  const rawExposes = device?.definition?.exposes || device?.exposes || [];
+
+  if (!Array.isArray(rawExposes)) return [];
+
+  // 🔥 flatten nested exposes like "switch"
+  const normalized = [];
+
+  rawExposes.forEach((exp) => {
+    // case: normal expose
+    if (exp.type !== "switch" && exp.type !== "light") {
+      normalized.push(exp);
+      return;
+    }
+
+    // case: nested expose
+    if (exp?.features && Array.isArray(exp.features)) {
+      normalized.push(...exp.features);
+      return;
+    }
+
+    // case: weird structure (your case)
+    if (exp?.expose?.features) {
+      normalized.push(...exp.expose.features);
+      return;
+    }
+
+    normalized.push(exp);
+  });
+
+  return normalized;
 }
 
 function getStateValue(statePayload, key) {
