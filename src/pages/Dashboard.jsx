@@ -11,6 +11,7 @@ import {
   renameDevice,
 } from "../api/api";
 import socket from "../socket/socket";
+import LogsModal from "../components/LogsModal";
 
 function Dashboard() {
   const [socketConnected, setSocketConnected] = useState(false);
@@ -26,6 +27,8 @@ function Dashboard() {
     batteryDevices: 0,
     lowBattery: 0,
   });
+  const [logsOpen, setLogsOpen] = useState(false);
+  const [logs, setLogs] = useState([]);
 
   const fetchInitialData = async () => {
     try {
@@ -185,12 +188,41 @@ function Dashboard() {
           </div>
         </div>
 
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            marginBottom: "10px",
+          }}
+        >
+          <button
+            onClick={() => setLogsOpen(true)}
+            style={{
+              padding: "8px 14px",
+              background: "#2563eb",
+              color: "#fff",
+              border: "none",
+              borderRadius: "6px",
+              cursor: "pointer",
+            }}
+          >
+            View Logs
+          </button>
+        </div>
+
         <DeviceList
           devices={devices}
           states={states}
           onDelete={handleDeleteDevice}
           handleRenameDevice={handleRenameDevice}
           loading={loading}
+        />
+
+        <LogsModal
+          open={logsOpen}
+          onClose={() => setLogsOpen(false)}
+          logs={logs}
+          setLogs={setLogs}
         />
       </div>
     </div>

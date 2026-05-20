@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { controlDevice } from "../api/api";
+import { controlDevice, interviewDevice, reconfigureDevice } from "../api/api";
 import "../styles/DeviceDetailsModal.css";
 
 function formatLabel(value = "") {
@@ -411,6 +411,36 @@ export default function DeviceDetailsModal({ open, device, state, onClose }) {
                 <span>Updated</span>
                 <strong>{updatedAt}</strong>
               </div>
+            </div>
+
+            <div className="device-actions">
+              <button
+                className="control-btn"
+                onClick={async () => {
+                  try {
+                    await reconfigureDevice(ieeeAddress);
+                    alert("Reconfigure triggered");
+                  } catch (e) {
+                    alert("Failed to reconfigure");
+                  }
+                }}
+              >
+                🔧 Reconfigure
+              </button>
+
+              <button
+                className="control-btn primary"
+                onClick={async () => {
+                  try {
+                    await interviewDevice(ieeeAddress);
+                    alert("Interview started");
+                  } catch (e) {
+                    alert("Failed to interview");
+                  }
+                }}
+              >
+                🔍 Interview
+              </button>
             </div>
           </div>
 

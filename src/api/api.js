@@ -24,4 +24,10 @@ export const renameDevice = (ieee, name) =>
 export const controlDevice = (ieee, payload) =>
   API.post(`/devices/${encodeURIComponent(ieee)}/control`, payload);
 
+export const reconfigureDevice = (ieee) =>
+  API.post("/zigbee/device/reconfigure", { ieee });
+
+export const interviewDevice = (ieee) =>
+  API.post("/zigbee/device/interview", { ieee });
+
 export default API;

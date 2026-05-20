@@ -451,6 +451,62 @@ function buildGraph(networkValue) {
     });
   });
 
+  // const edgeCountMap = new Map();
+
+  // rawLinks.forEach((link, index) => {
+  //   const sourceId = getLinkSourceId(link);
+  //   const targetId = getLinkTargetId(link);
+
+  //   if (!sourceId || !targetId) return;
+
+  //   const pairKey =
+  //     sourceId < targetId
+  //       ? `${sourceId}-${targetId}`
+  //       : `${targetId}-${sourceId}`;
+
+  //   const count = edgeCountMap.get(pairKey) || 0;
+  //   edgeCountMap.set(pairKey, count + 1);
+
+  //   const handleIndex = count % 10; // match MAX_HANDLES
+
+  //   const lqi = link?.lqi ?? 0;
+  //   const edgeColor = getLqiColor(lqi);
+  //   const strokeWidth = getLqiStrokeWidth(lqi);
+
+  //   // alternate curve direction
+  //   const direction = count % 2 === 0 ? 1 : -1;
+  //   const curvature = direction * (0.25 + Math.floor(count / 2) * 0.2);
+
+  //   graphEdges.push({
+  //     id: `edge-${sourceId}-${targetId}-${index}`,
+  //     source: sourceId,
+  //     target: targetId,
+
+  //     sourceHandle: `right-${handleIndex}`, // 🔥 key fix
+  //     targetHandle: `left-${handleIndex}`,
+
+  //     type: "bezier",
+
+  //     pathOptions: {
+  //       curvature,
+  //     },
+
+  //     label: `LQI ${lqi}`,
+
+  //     markerEnd: {
+  //       type: MarkerType.ArrowClosed,
+  //       color: edgeColor,
+  //     },
+
+  //     style: {
+  //       stroke: edgeColor,
+  //       strokeWidth,
+  //       opacity: 0.85,
+  //     },
+  //   });
+  // });
+
+
   return {
     nodes: graphNodes,
     edges: graphEdges,
